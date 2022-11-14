@@ -3,6 +3,8 @@ package edu.pitt.cs;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//import javafx.scene.chart.CategoryAxisBuilder;
+
 public class RentACatImpl implements RentACat {
 
 	private ArrayList<Cat> cats = new ArrayList<Cat>();
@@ -19,7 +21,16 @@ public class RentACatImpl implements RentACat {
 
 	public boolean returnCat(int id) {
 		// TODO
-		return false;
+		//return false;
+
+		if(catExists(id) && !catAvailable(id)){
+			getCat(id).returnCat(); 
+			return true;
+		}
+		
+		else
+			return false;
+
 	}
 
 	/**
@@ -33,8 +44,15 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public boolean rentCat(int id) {
-		// TODO
-		return false;
+		if(catExists(id) && catAvailable(id)){
+			getCat(id).rentCat(); 
+			return true;
+		}
+		
+		else
+			return false;
+		
+			
 	}
 
 	/**
@@ -48,8 +66,14 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public String listCats() {
-		// TODO
-		return "WRITE CODE FOR THIS";
+		String listOfUnrentedCats = "";
+		for ( Cat cat : cats )
+			if (cats.size() > 0 && !cat.getRented())
+				listOfUnrentedCats += cat.toString() + "\n";
+		
+		return listOfUnrentedCats;
+				
+			
 	}
 
 	/**
@@ -63,7 +87,14 @@ public class RentACatImpl implements RentACat {
 
 	public boolean catExists(int id) {
 		// TODO
-		return false;
+		//return false;
+
+		boolean existence = false;
+		for(Cat curr : cats){
+			if(curr.getId() == id)
+				existence = true;
+		}
+		return existence;
 	}
 
 	/**
